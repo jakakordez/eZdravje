@@ -1,0 +1,42 @@
+body{
+   overflow-y: scroll;
+}
+
+#msg{
+    width: 100%;
+    position: fixed;
+    height: 50px;
+    border-radius: 5px;
+    padding: 12px;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    display: none;
+}
+
+#graph{
+    width:100%;
+}
+
+.pacient>div *{
+    width:100%;
+    margin-bottom: 5px;
+}
+
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}

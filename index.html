@@ -4,11 +4,14 @@
   <meta charset="utf-8">
   <title>eZdravje :: 4. DN :: OIS 2015/2016</title>
   <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
+  <link href="knjiznice/css/general.css" rel="stylesheet">
   <style>
     body {padding-top: 70px;}
   </style>
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script src="knjiznice/js/graf.js"></script>
   <script src="knjiznice/js/koda.js"></script>
 </head>
 <body>
@@ -22,7 +25,7 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">eZdravje</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
@@ -37,10 +40,83 @@
   <!-- KONEC: Menujska vrstica na vrhu spletne strani -->
 
   <!-- ZAČETEK: Vsebina aplikacije -->
+  <div id="msg">Sporočilo</div>
   <div class="container">
+    <div class="row pacient">
+      <div class="col-lg-4"></div>
+      <div class="col-lg-4 text-center">
+       <div class="polja">
+         <h1>Izbor pacienta</h1>
+        <select class="form-control">
+          <option>Janez Novak</option>
+          <option>Mojca Kovač</option>
+          <option>Peter Kos</option>
+        </select>
+        <input class="form-control" id="ehrId" placeholder="EHR Id">
+        </div>
+        <button class="btn btn-success" id="btnIzborPacienta">Izberi pacienta</button>
+      </div>
+      <div class="col-lg-4"></div>
+    </div>
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <p class="lead"><strong>TO-DO</strong>: Na tem mestu implementirajte vašo aplikacijo.</p>
+      <div class="col-lg-7">
+        <h1 id="patientName">Janez Novak</h1>
+        <p>EHR ID: <code id="patientEHR">b931580f-2b05-488b-985b-8d9ffb08ad02</code></p>
+        <p>Datum rojstva: <strong id="patientBirthday">5.5.1876</strong></p>
+        <p>Naslov: <strong id="patientAddress">Ljubljana, Slovenia</strong></p>
+        <p>
+          <div id="graph">
+            
+          </div>
+        </p>
+      </div>
+      <div class="col-lg-5">
+        <h2>Meritev krvnega tlaka</h2>
+        <p>EHR ID: <code>b931580f-2b05-488b-985b-8d9ffb08ad02</code></p>
+        <p>Datum: 12.5.2005 15.50</p>
+        <p>Sistolični: 118 mmHg</p>
+        <p>Diastolični: 92 mmHg</p>
+        <table class="table table-striped meritve">
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Sistolični</th>
+              <th>Diastolični</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1.5.2000</td>
+              <td>112</td>
+              <td>95</td>
+            </tr>
+            <tr>
+              <td>1.5.2000</td>
+              <td>112</td>
+              <td>95</td>
+            </tr>
+            <tr>
+              <td>1.5.2000</td>
+              <td>112</td>
+              <td>95</td>
+            </tr>
+            <tr>
+              <td>1.5.2000</td>
+              <td>112</td>
+              <td>95</td>
+            </tr>
+            <tr>
+              <td>1.5.2000</td>
+              <td>112</td>
+              <td>95</td>
+            </tr>
+            <tr>
+              <td>1.5.2000</td>
+              <td>112</td>
+              <td>95</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

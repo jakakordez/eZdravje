@@ -45,7 +45,8 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.</p>
+            <p> Aplikacija je namenjena vsem, ki želijo imeti pregled nad svojimi meritvami krvnega tlaka in primerjati vrednosti z povprečjem države v kateri živijo.
+              <!--<strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.--></p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -55,7 +56,8 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je navesti zunanji vir podatkov (URL naslov), na kakšen način ste ga uporabili (neposredni API klic, uvožena statična datoteka ipd.) in kaj je bil namen uporabe (kako se vključuje v osnovno idejo aplikacije).</p>
+            <p>Uporabil sem zbirko povprečnih, maksimalnih in minimalnih vrednosti sistoličnega krvnega tlaka glede na državo Svetovne zdravstvene organizacije (WHO). API je na voljo preko naslova <code>http://apps.who.int/gho/athena/data/GHO/BP_06.json?profile=simple&filter=AGEGROUP:*;SEX:*;COUNTRY:*</code>. Na tem naslovu vrne omenjene podatke v JSON obliki.
+              <!--<strong>TO-DO</strong>: Na tem mestu je navesti zunanji vir podatkov (URL naslov), na kakšen način ste ga uporabili (neposredni API klic, uvožena statična datoteka ipd.) in kaj je bil namen uporabe (kako se vključuje v osnovno idejo aplikacije).--></p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
@@ -65,7 +67,8 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
-            <p><strong>TO-DO</strong>: Na tem mestu morate navesti uporabljen master/detail načrtovalski vzorec in na kakšen način ga nameravate uporabiti.</p>
+            <p>Na desni strani je seznam meritev krvnega tlaka izbranega pacienta. Ob kliku na meritev se nam njen Id, datum in vrednost izpiše nad seznamom.
+              <!--<strong>TO-DO</strong>: Na tem mestu morate navesti uporabljen master/detail načrtovalski vzorec in na kakšen način ga nameravate uporabiti.--></p>
             <!-- KONEC: Master/detail načrtovalski vzorec -->
           </div>
         </div>
@@ -75,7 +78,8 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.</p>
+            <p>Aplikacija prikaže vse meritve krvnega tlaka izbranega pacienta na grafu. Poleg tega prikazuje graf tudi 3 ravne črte: povprečno, maksimalno in minimalno vrednost tlaka za državo v kateri prebiva.
+              <!--<strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.--></p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
