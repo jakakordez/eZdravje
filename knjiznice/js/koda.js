@@ -190,8 +190,8 @@ function chDateTime(d){
 }
 
 function getValues(address) {
-	$.get("http://apps.who.int/gho/athena/data/GHO/BP_06.json?profile=simple&filter=AGEGROUP:*;SEX:*;COUNTRY:*", function(result){
-		var data = JSON.parse(result).fact;
+	$.getJSON( "http://apps.who.int/gho/athena/data/GHO/BP_06.json?profile=simple&filter=AGEGROUP:*;SEX:*;COUNTRY:*", function( result ) {
+	  var data = JSON.parse(result).fact;
 		var patt = /(\d{1,3}.\d) \[(\d{1,3}.\d)-(\d{1,3}.\d)\]/i
 		for(var i = 0; i < data.length; i++){
 			if(address == data[i].dim.COUNTRY == address && address == data[i].dim.SEX == "Both sexes")
@@ -201,6 +201,7 @@ function getValues(address) {
 			}
 		}
 	});
+	return [0, 0, 0];
 }
 
 function displayBloodPressureMesasurements(ehrId){
