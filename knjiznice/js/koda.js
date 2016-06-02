@@ -231,19 +231,26 @@ function displayMesasurements(ehrId, address){
 	    			$("#measurementSystolic").html(meritve[id].systolic+" "+meritve[id].unit);
 	    			$("#measurementDiastolic").html(meritve[id].diastolic+" "+meritve[id].unit);
 	    		});
-    			$.get("https://jsonp.afeld.me/?url=http%3A%2F%2Fapps.who.int%2Fgho%2Fathena%2Fdata%2FGHO%2FBP_06.json%3Fprofile%3Dsimple%26filter%3DAGEGROUP%3A*%3BSEX%3A*%3BCOUNTRY%3A*", function( result ) {
-					console.log(result);
-					var data = result.fact;
-					var patt = /(\d{1,3}.\d) \[(\d{1,3}.\d)-(\d{1,3}.\d)\]/i
-					for(var i = 0; i < data.length; i++){
-						if(address.indexOf(data[i].dim.COUNTRY) != -1 && data[i].dim.SEX == "Both sexes")
-						{
-							var vrednosti = data[i].Value.match(patt);
-		    				displayChart(res, [parseFloat(vrednosti[1]), parseFloat(vrednosti[2]), parseFloat(vrednosti[3])]);
-		    				return;
+	    		if(address){
+	    			$.get("https://jsonp.afeld.me/?url=http%3A%2F%2Fapps.who.int%2Fgho%2Fathena%2Fdata%2FGHO%2FBP_06.json%3Fprofile%3Dsimple%26filter%3DAGEGROUP%3A*%3BSEX%3A*%3BCOUNTRY%3A*", function( result ) {
+						console.log(result);
+						var data = result.fact;
+						var patt = /(\d{1,3}.\d) \[(\d{1,3}.\d)-(\d{1,3}.\d)\]/i
+						for(var i = 0; i < data.length; i++){
+							if(address.indexOf(data[i].dim.COUNTRY) != -1 && data[i].dim.SEX == "Both sexes")
+							{
+								var vrednosti = data[i].Value.match(patt);
+			    				displayChart(res, [parseFloat(vrednosti[1]), parseFloat(vrednosti[2]), parseFloat(vrednosti[3])]);
+			    				return;
+							}
 						}
-					}
-    			});
+	    			});
+	    		}
+	    		else {
+	    			msg("Naslov ni na voljo!", true);
+	    			displayChart(res, [res[0].systolic, res[0].systolic, res[0].systolic]);
+    				return;
+	    		}
 			}
 	    },
 	    error: function() {
