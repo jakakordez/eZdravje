@@ -23,6 +23,15 @@ body{
     margin-bottom: 5px;
 }
 
+td{
+    cursor:pointer;
+}
+
+tr.selected{
+    background: steelblue !important;
+    color: white;
+}
+
 
 .axis path,
 .axis line {
@@ -40,3 +49,6 @@ body{
   stroke: steelblue;
   stroke-width: 1.5px;
 }
+
+.line.limit{stroke: red;}
+.line.avg{stroke: gray;}

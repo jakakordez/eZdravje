@@ -5,7 +5,7 @@ var queryUrl = baseUrl + '/query';
 var username = "ois.seminar";
 var password = "ois4fri";
 
-
+var meritve;
 /**
  * Prijava v sistem z privzetim uporabnikom za predmet OIS in pridobitev
  * enolične ID številke za dostop do funkcionalnosti
@@ -21,26 +21,26 @@ function getSessionId() {
     return response.responseJSON.sessionId;
 }
 
-var pacienti = [{}, {ime: "Janez", priimek: "Novak", datumRojstva: "1968-02-12T10:05", naslov: "Slovenia", 
-						meritve: [	{ datum: "1968-03-16T12:07", sistolicni: 110, diastolicni: 90},
-									{ datum: "1978-04-10T14:06", sistolicni: 100, diastolicni: 90},
-									{ datum: "1988-05-11T18:03", sistolicni: 120, diastolicni: 90},
-									{ datum: "1998-06-30T22:04", sistolicni: 125, diastolicni: 90},
-									{ datum: "2008-07-02T13:25", sistolicni: 121, diastolicni: 90},
+var pacienti = [{}, {ime: "Janez", priimek: "Novak", datumRojstva: "1968-02-12T10:05", naslov: "Serbia", 
+						meritve: [	{ datum: "1969-12-12T13:39", sistolicni: 129, diastolicni: 91},
+									{ datum: "1980-02-12T15:18", sistolicni: 130, diastolicni: 92},
+									{ datum: "1990-02-12T16:05", sistolicni: 129, diastolicni: 93},
+									{ datum: "1991-02-12T17:29", sistolicni: 128, diastolicni: 94},
+									{ datum: "1993-02-12T14:35", sistolicni: 130, diastolicni: 95},
 									]},
                     {ime: "Mojca", priimek: "Kovač", datumRojstva: "1977-02-10T01:10", naslov: "Austria", 
-						meritve: [	{ datum: "1978-03-11T05:15", sistolicni: 118, diastolicni: 90},
-									{ datum: "1989-02-12T10:35", sistolicni: 110, diastolicni: 90},
-									{ datum: "1999-02-12T10:54", sistolicni: 105, diastolicni: 90},
-									{ datum: "2000-02-12T10:36", sistolicni: 115, diastolicni: 90},
-									{ datum: "2012-02-12T10:48", sistolicni: 120, diastolicni: 90},
+						meritve: [	{ datum: "1978-03-11T05:15", sistolicni: 118, diastolicni: 95},
+									{ datum: "1989-02-12T10:35", sistolicni: 120, diastolicni: 94},
+									{ datum: "1999-02-12T10:54", sistolicni: 122, diastolicni: 93},
+									{ datum: "2000-02-12T10:36", sistolicni: 121, diastolicni: 92},
+									{ datum: "2012-02-12T10:48", sistolicni: 120, diastolicni: 91},
 									]},
-                    {ime: "Peter", priimek: "Kos", datumRojstva: "1966-03-05T22:28", naslov: "Canada", 
-						meritve: [	{ datum: "1969-12-12T13:39", sistolicni: 108, diastolicni: 90},
-									{ datum: "1970-02-12T15:18", sistolicni: 105, diastolicni: 90},
-									{ datum: "1990-02-12T16:05", sistolicni: 104, diastolicni: 90},
-									{ datum: "1991-02-12T17:29", sistolicni: 107, diastolicni: 90},
-									{ datum: "1993-02-12T14:35", sistolicni: 110, diastolicni: 90},
+                    {ime: "Peter", priimek: "Kos", datumRojstva: "1966-03-05T22:28", naslov: "Turkey", 
+						meritve: [	{ datum: "1969-12-12T13:39", sistolicni: 129, diastolicni: 91},
+									{ datum: "1980-02-12T15:18", sistolicni: 130, diastolicni: 92},
+									{ datum: "1990-02-12T16:05", sistolicni: 129, diastolicni: 93},
+									{ datum: "1991-02-12T17:29", sistolicni: 128, diastolicni: 94},
+									{ datum: "1993-02-12T14:35", sistolicni: 130, diastolicni: 95},
 									]}];
 /**
  * Generator podatkov za novega pacienta, ki bo uporabljal aplikacijo. Pri
@@ -50,7 +50,7 @@ var pacienti = [{}, {ime: "Janez", priimek: "Novak", datumRojstva: "1968-02-12T1
  * @param stPacienta zaporedna številka pacienta (1, 2 ali 3)
  * @return ehrId generiranega pacienta
  */
-function generirajPodatke(stPacienta) {
+function generirajPodatke(stPacienta, callback) {
     var ehrId = "";
     var sessionId = getSessionId();
     var p = pacienti[stPacienta];
@@ -61,7 +61,7 @@ function generirajPodatke(stPacienta) {
 	    url: baseUrl + "/ehr",
 	    type: 'POST',
 	    success: function (data) {
-	        var ehrId = data.ehrId;
+	        ehrId = data.ehrId;
 	        var partyData = {
 	            firstNames: p.ime,
 	            lastNames: p.priimek,
@@ -79,8 +79,6 @@ function generirajPodatke(stPacienta) {
 	                	for(var i = 0; i < p.meritve.length; i++){
 	                		var m = p.meritve[i];
 		                	var podatki = {
-								// Struktura predloge je na voljo na naslednjem spletnem naslovu:
-					      		// https://rest.ehrscape.com/rest/v1/template/Vital%20Signs/example
 							    "ctx/language": "en", "ctx/territory": "SI", "ctx/time": m.datum,
 							    "vital_signs/blood_pressure/any_event/systolic": m.sistolicni,
 							    "vital_signs/blood_pressure/any_event/diastolic": m.diastolicni
@@ -97,7 +95,7 @@ function generirajPodatke(stPacienta) {
 							    contentType: 'application/json',
 							    data: JSON.stringify(podatki),
 							    success: function (res) {
-							        msg(res.meta.href);
+							        //msg(res.meta.href);
 							    },
 							    error: function(err) {
 							    	msg("Napaka '" + JSON.parse(err.responseText).userMessage + "'!", true);
@@ -105,6 +103,7 @@ function generirajPodatke(stPacienta) {
 							});
 	                	}
 	                    msg("EHR kreiran "+ehrId );
+	                    callback(ehrId, p.ime+" "+p.priimek);
 	                }
 	            },
 	            error: function(err) {
@@ -113,7 +112,6 @@ function generirajPodatke(stPacienta) {
 	        });
 	    }
 	});
-    return ehrId;
 }
 
 function msg(message, danger = false){
@@ -127,9 +125,7 @@ function msg(message, danger = false){
 $(function(){
    $("#btnIzborPacienta").click(function(){
        if($(this).html() == "Izberi pacienta"){
-           
-           sessionId = getSessionId();
-
+       		sessionId = getSessionId();
 			var ehrId = $("#ehrId").val();
 		
 			if (!ehrId || ehrId.trim().length == 0) {
@@ -156,14 +152,28 @@ $(function(){
            $(".polja").slideDown();
        }
    });
+   
+   $("#generirajPodatke").click(function(){
+   	for(var i = 1; i <= 3; i++){
+	   	generirajPodatke(i, function(ehrId, ime){
+	   		$("#drpPacienti").append("<option value='"+ehrId+"'>"+ime+"</option>");
+	   	});
+   	}
+   });
+   
+	$("#drpPacienti").on('change', function() {
+		$("#ehrId").val( this.value );
+	});
 });
 
 function displayPatient(patient){
 	var ehrId;
+	var address;
 	$("#patientName").html(patient.firstNames+" "+patient.lastNames);
 	$("#patientBirthday").html(chDateTime(patient.dateOfBirth));
 	$("#patientEHR").html("Neznan");
 	$("#patientAddress").html("Neznan");
+	
 	for(var i = 0; i < patient.partyAdditionalInfo.length; i++){
 		if(patient.partyAdditionalInfo[i].key == "ehrId"){
 			ehrId = patient.partyAdditionalInfo[i].value;
@@ -171,9 +181,10 @@ function displayPatient(patient){
 		}
 		if(patient.partyAdditionalInfo[i].key == "address"){
 			$("#patientAddress").html(patient.partyAdditionalInfo[i].value);
+			address = patient.partyAdditionalInfo[i].value;
 		}
 	}
-	displayBloodPressureMesasurements(ehrId);
+	displayMesasurements(ehrId, address);
 }
 
 function chDate(d){
@@ -189,22 +200,11 @@ function chDateTime(d){
 	return res[3]+"."+res[2]+"."+res[1]+" "+res[4]+":"+res[5]+":"+res[6];
 }
 
-function getValues(address) {
-	$.getJSON( "http://apps.who.int/gho/athena/data/GHO/BP_06.json?profile=simple&filter=AGEGROUP:*;SEX:*;COUNTRY:*", function( result ) {
-	  var data = JSON.parse(result).fact;
-		var patt = /(\d{1,3}.\d) \[(\d{1,3}.\d)-(\d{1,3}.\d)\]/i
-		for(var i = 0; i < data.length; i++){
-			if(address == data[i].dim.COUNTRY == address && address == data[i].dim.SEX == "Both sexes")
-			{
-				var res = data[i].Value.match(patt);
-				return [res[1], res[2], res[3]];
-			}
-		}
-	});
-	return [0, 0, 0];
-}
-
-function displayBloodPressureMesasurements(ehrId){
+function displayMesasurements(ehrId, address){
+	$("#graph").html("");
+	$("#measurementDate").html("/");
+	$("#measurementSystolic").html("/");
+	$("#measurementDiastolic").html("/");
 	var sessionId = getSessionId();
 	$.ajaxSetup({
 	    headers: {"Ehr-Session": sessionId}
@@ -217,14 +217,34 @@ function displayBloodPressureMesasurements(ehrId){
 	    	if (res.length > 0) {
 	    		console.log(res);
 	    		$(".meritve tbody").html("");
-	    		
+	    		meritve = res;
 	    		for(var i = 0; i < res.length; i++){
-	    			$(".meritve tbody").append("<tr><td>"+chDate(res[i].time)+"</td><td>"+res[i].systolic+"</td><td>"+res[i].diastolic+"</td></tr>");
+	    			$(".meritve tbody").append("<tr meritev='"+i+"'><td>"+chDate(res[i].time)+"</td><td>"+res[i].systolic+"</td><td>"+res[i].diastolic+"</td></tr>");
 	    		}
-	    		
-	    		
-	    		displayChart(res, getValues("Slovenia"));
-	    	}
+	    		$("tr[meritev]").click(function() {
+	    			$("tr").removeClass("selected");
+	    			$(this).addClass("selected");
+	    			
+	    			var id = parseInt($(this).attr("meritev"));
+	    			console.log(id);
+	    			$("#measurementDate").html(chDateTime(meritve[id].time));
+	    			$("#measurementSystolic").html(meritve[id].systolic+" "+meritve[id].unit);
+	    			$("#measurementDiastolic").html(meritve[id].diastolic+" "+meritve[id].unit);
+	    		});
+    			$.get("https://jsonp.afeld.me/?url=http%3A%2F%2Fapps.who.int%2Fgho%2Fathena%2Fdata%2FGHO%2FBP_06.json%3Fprofile%3Dsimple%26filter%3DAGEGROUP%3A*%3BSEX%3A*%3BCOUNTRY%3A*", function( result ) {
+					console.log(result);
+					var data = result.fact;
+					var patt = /(\d{1,3}.\d) \[(\d{1,3}.\d)-(\d{1,3}.\d)\]/i
+					for(var i = 0; i < data.length; i++){
+						if(address.indexOf(data[i].dim.COUNTRY) != -1 && data[i].dim.SEX == "Both sexes")
+						{
+							var vrednosti = data[i].Value.match(patt);
+		    				displayChart(res, [parseFloat(vrednosti[1]), parseFloat(vrednosti[2]), parseFloat(vrednosti[3])]);
+		    				return;
+						}
+					}
+    			});
+			}
 	    },
 	    error: function() {
 	    	msg("Napaka '" +JSON.parse(err.responseText).userMessage + "'!", true);
